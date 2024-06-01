@@ -10,8 +10,7 @@ inputStart.addEventListener("keyup", addSlash);
 inputEnd.addEventListener("keyup", addSlash);
 
 function onFormattedDatesUpdated() {
-    console.log('Start Date:', formattedDates.startDate);
-    console.log('End Date:', formattedDates.endDate);;
+    useFormattedDates(formattedDates.startDate, formattedDates.endDate);
 }
 
 function addSlash(event) {
@@ -53,22 +52,15 @@ function addSlash(event) {
     onFormattedDatesUpdated();
 }
 
-function onFormattedDatesUpdated() {
-    useFormattedDates(formattedDates.startDate, formattedDates.endDate);
-}
+function useFormattedDates(startDate, endDate) {
+    if (startDate && endDate) {
+        const startYear = parseInt(startDate.slice(0, 4));
+        const startMonth = parseInt(startDate.slice(4, 6)) - 1;
+        const startDay = parseInt(startDate.slice(6, 8));
 
-function useFormattedDates(startDate, endDate, startYear) {
-    const mulai = startDate;
-    const akhir = endDate;
-    
-    if (mulai && akhir) {
-        const startYear = parseInt(mulai.slice(0, 4));
-        const startMonth = parseInt(mulai.slice(4, 6)) - 1;
-        const startDay = parseInt(mulai.slice(6, 8));
-
-        const endYear = parseInt(akhir.slice(0, 4));
-        const endMonth = parseInt(akhir.slice(4, 6)) - 1;
-        const endDay = parseInt(akhir.slice(6, 8));
+        const endYear = parseInt(endDate.slice(0, 4));
+        const endMonth = parseInt(endDate.slice(4, 6)) - 1;
+        const endDay = parseInt(endDate.slice(6, 8));
 
         const start = new Date(startYear, startMonth, startDay);
         const end = new Date(endYear, endMonth, endDay);
@@ -87,68 +79,66 @@ function useFormattedDates(startDate, endDate, startYear) {
             diffMonths += 12;
         }
 
-        
-        return { years: diffYears, months: diffMonths, days: diffDays, tahuns: startYear};
+        return { years: diffYears, months: diffMonths, days: diffDays, tahuns: startYear };
     } else {
         console.log('Tanggal mulai dan/atau akhir belum diisi dengan benar.');
         return null;
     }
 }
 
-const selisihTanggal = useFormattedDates(formattedDates.startDate, formattedDates.endDate);
-
-// if (startYear !== null) {
-//     console.log('Start Year:', startYear);
-// } else {
-//     console.log('Tanggal mulai dan/atau akhir belum diisi dengan benar.');
-// }
-
+let selisihTanggal = useFormattedDates(formattedDates.startDate, formattedDates.endDate);
 
 let dataBlog = [];
 
-function submitBlog(event){
+function submitBlog(event) {
     event.preventDefault();
-    let inputTitle = document.getElementById("inputTitle").value
+    let inputTitle = document.getElementById("inputTitle").value;
     let inputStart = document.getElementById("inputStart").value;
     let inputEnd = document.getElementById("inputEnd").value;
-    let inputDescription = document.getElementById("inputDescription").value
-    const nodeJs = document.getElementById("nodeJs").checked
-    const reactJs = document.getElementById("reactJs").checked
-    const nextJs = document.getElementById("nextJs").checked
-    const typeScript = document.getElementById("typeScript").checked
-    let inputImage = document.getElementById("inputImage").files
+    let inputDescription = document.getElementById("inputDescription").value;
+    const nodeJs = document.getElementById("nodeJs").checked;
+    const reactJs = document.getElementById("reactJs").checked;
+    const nextJs = document.getElementById("nextJs").checked;
+    const typeScript = document.getElementById("typeScript").checked;
+    let inputImage = document.getElementById("inputImage").files;
 
-    if (inputTitle == ""){
-        alert("Title harus diisi")
-    }else if(inputStart == "" && inputEnd == ""){
-        alert("Time harus diisi")
-    }else if(inputDescription == ""){
-        alert("Description harus diisi")
-    }else if(nodeJs == false && reactJs == false && nextJs == false && typeScript == false){
-        alert("Technologies harus diisi")
-    }else{
-        alert("File harus diisi")
+    if (!inputTitle) {
+        alert("Title harus diisi");
+    } else if (!inputStart || !inputEnd) {
+        alert("Time harus diisi");
+    } else if (!inputDescription) {
+        alert("Description harus diisi");
+    } else if (!nodeJs && !reactJs && !nextJs && !typeScript) {
+        alert("Technologies harus diisi");
+    } else if (!inputImage.length) {
+        alert("File harus diisi");
+    } else {
+        inputImage = URL.createObjectURL(inputImage[0]);
+
+        selisihTanggal = useFormattedDates(formattedDates.startDate, formattedDates.endDate);
+
+        if (selisihTanggal) {
+            const blog = {
+                projectname: inputTitle,
+                selisih_years: selisihTanggal.years,
+                selisih_months: selisihTanggal.months,
+                selisih_days: selisihTanggal.days,
+                tahun: selisihTanggal.tahuns,
+                description: inputDescription,
+                image: inputImage,
+                nodejs: nodeJs,
+                reactjs: reactJs,
+                nextjs: nextJs,
+                typescript: typeScript,
+            };
+
+            dataBlog.push(blog);
+            console.log("dataArray:", dataBlog);
+            renderBlog();
+        } else {
+            alert("Tanggal mulai dan/atau akhir belum diisi dengan benar.");
+        }
     }
-    
-    inputImage = URL.createObjectURL(inputImage[0]);
-
-    const blog = {
-        projectname: inputTitle,
-        selisih_days: selisihTanggal.days,
-        selisih_months: selisihTanggal.months,
-        selisih_years: selisihTanggal.years,
-        tahun: "2020",
-        description: inputDescription,
-        image: inputImage,
-        nodejs: nodeJs,
-        reactjs: reactJs,
-        nextjs: nextJs,
-        typescript: typeScript,
-    };
-
-    dataBlog.push(blog);
-    console.log("dataArray:" + dataBlog);
-    renderBlog();
 }
 
 function renderBlog() {
@@ -165,10 +155,10 @@ function renderBlog() {
                     <p>durasi: ${dataBlog[index].selisih_years} Tahun, ${dataBlog[index].selisih_months} Bulan, ${dataBlog[index].selisih_days} Hari</p>
                     <p>${dataBlog[index].description}</p>
                     <div class="languages">
-                        ${dataBlog[index].nodejs ? "<img src=\"/Day5/assets/img/nodejs.png\" alt=\"Node.js\"/>" : ""}
-                        ${dataBlog[index].reactjs ? "<img src=\"/Day5/assets/img/developer.png\" alt=\"React\"/>" : ""}
-                        ${dataBlog[index].nextjs ? "<img src=\"/Day5/assets/img/next.png\" alt='Next.js'/>" : ""}
-                        ${dataBlog[index].typescript ? "<img src=\"/Day5/assets/img/typescript.png\" alt=\"TypeScript\"/>" : ""}
+                        ${dataBlog[index].nodejs ? "<img src=\"./assets/img/nodejs.png\" alt=\"Node.js\"/>" : ""}
+                        ${dataBlog[index].reactjs ? "<img src=\"./assets/img/developer.png\" alt=\"React\"/>" : ""}
+                        ${dataBlog[index].nextjs ? "<img src=\"./assets/img/next.png\" alt='Next.js'/>" : ""}
+                        ${dataBlog[index].typescript ? "<img src=\"./assets/img/typescript.png\" alt=\"TypeScript\"/>" : ""}
                     </div>
                     <div class="btn-group">
                         <button class="btn-edit">Edit</button>
@@ -178,10 +168,8 @@ function renderBlog() {
             </div>
         </div>
         `;
-    }
+}
 }
 
+document.getElementById("submitBlogForm").addEventListener("submit", submitBlog);
 
-setInterval(function () {
-    renderBlog();
-}, 1000);
