@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/contact.css">
+</head>
+<body>
+    
+    <nav class="nav" >
+        <div class="nav-part">
+            <ul>
+                <li>
+                    <img style="height: 50px;" src="https://avatars3.githubusercontent.com/u/34464790?s=220&v=4">
+                </li>
+                <li class="nav-link nav-collapse">
+                    <p><a href="index.html" style="font-weight: bold;">Home</a></p>
+                </li>
+                <li class="nav-link nav-collapse">
+                    <p><a href="myProject.html" style="font-weight: bold;">My Project</a></p>
+                </li>
+                <li class="nav-link nav-collapse">
+                    <a href="myProjectDetail.html">Project Detail</a>
+                </li>
+                <li class="nav-link nav-collapse">
+                    <a href="testimonial.html">Testimonial</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bungkus-btn">
+            <a href="contact.html" class="btn-content nav-collapse">Contact Me</a>
+            <i class="fa-solid fa-bars" style="cursor: pointer;" id="humberger-button"
+                onclick="openHumberger()"></i>
+        </div>
+    </nav>
+
+    <div class="humberger-nav-container" id="humberger-nav-container">
+        <a href="index.html" class="active">Home</a>
+        <a href="myProject.html">My Project</a>
+        <a href="testimonial.html">Testimonial</a>
+        <a href="contact.html">Contact Me</a>
+    </div>
+
+    <div class="judul">
+        <h2>Get in Touch</h2>
+    </div>
+
+    <div class="container">
+        <submit class="form-contact">
+            <label for="label-contact">Name</label>
+            <input type="text" class="input-contact" id="inputName">
+
+            <label for="label-contact">Email</label>
+            <input type="text" class="input-contact" id="inputEmail">
+
+            <label for="label-contact">Phone Number</label>
+            <input type="text" class="input-contact" id="inputNumber">
+
+            <label for="label-contact">Subject</label>
+            <select class="input-contact" id="inputSubject">
+                <option></option>
+                <option>Frontend Developer</option>
+                <option>Backend Developer</option>
+                <option>Fullstack Developer</option>
+            </select>
+
+            <label for="label-contact">Your Massage</label>
+            <textarea class="input-contact" id="inputMassage"></textarea>
+
+            <input type="button" value="submit" class="submit-contact" onclick="submitData()">
+            
+        </form>
+
+        <script src="assets/js/contact.js"></script>
+        <script src="assets/js/nav.js"></script>
+        
+    </div>
+</body>
+</html>
