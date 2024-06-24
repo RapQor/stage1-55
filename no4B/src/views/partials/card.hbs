@@ -1,0 +1,24 @@
+<div class="card w-25 mx-4 my-4 shadow border-0">
+    {{#if this.provinsi_id}}
+        <img src="{{this.provinsi_photo}}" alt="Provinsi photo" class="card-img-top rounded-top" style="height: 250px; object-fit: cover;">
+        <div class="card-body">
+            <h3 class="card-title">{{this.provinsi_nama}}</h3>
+            <p class="card-text">DiResmikan pada: {{this.provinsi_diresmikan}}</p>
+            <p class="card-text">Pulau: {{this.provinsi_pulau}}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+            <a href="/detail/{{this.provinsi_id}}" class="btn btn-secondary w-100">Detail</a>
+        </div>
+    {{/if}}
+    {{#if this.kabupaten_id}}
+        <img src="{{this.kabupaten_photo}}" alt="Kabupaten photo" class="card-img-top rounded-top" style="height: 250px; object-fit: cover;">
+        <div class="card-body">
+            <h3 class="card-title">{{this.kabupaten_nama}}</h3>
+            <p class="card-text">DiResmikan pada: {{this.kabupaten_diresmikan}}</p>
+            <p class="card-text">Provinsi: {{this.provinsi_nama}}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-center">
+            <a href="/detail-kab/{{this.kabupaten_id}}" class="btn btn-secondary w-100">Detail</a>
+        </div>
+    {{/if}}
+</div>
