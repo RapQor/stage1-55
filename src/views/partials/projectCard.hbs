@@ -1,0 +1,38 @@
+<div class="card w-25 mx-4 my-4 shadow border-0">
+    <img src="/assets/uploads/{{this.photo}}" alt="ini phto" class="card-img-top rounded-top" style="height: 250px; object-fit: cover;">
+    <div class="card-body">
+        <h3 class="card-title">
+            <a href="/myprojectdetail/{{this.id}}" target="_blank">{{this.projectName}}</a>
+        </h3>
+        <p class="card-text">{{this.id}} | {{this.startDate}} | {{this.author}}</p>
+        <p class="card-text">Duration: {{calculateDuration this.startDate this.endDate}}</p>
+        <p class="card-text">
+            {{this.description}}
+        </p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                {{#if this.nodeJs}}
+                <img src="/assets/img/nodejs.png" alt="Node.js" class="technology-logo me-1" width="24" height="24">
+                {{/if}}
+                {{#if this.reactJs}}
+                <img src="/assets/img/reactjs.png" alt="React.js" class="technology-logo me-1" width="24" height="24">
+                {{/if}}
+                {{#if this.nextJs}}
+                <img src="/assets/img/nextjs.png" alt="Next.js" class="technology-logo me-1" width="24" height="24">
+                {{/if}}
+                {{#if this.typeScript}}
+                <img src="/assets/img/typescript.png" alt="TypeScript" class="technology-logo me-1" width="24" height="24">
+                {{/if}}
+            </div>
+        </li>
+    </ul>
+    <div class="card-footer d-flex justify-content-between">
+        <a href="/update-project/{{this.id}}" class="btn btn-secondary w-50"><button class="btn btn-secondary">Edit Post</button></a>
+        {{!-- <button >Delete Post</button> --}}
+        <form method="post" action="/delete-project/{{this.id}}" class="btn btn-danger w-50">
+            <button class="btn btn-danger">Delete Post</button>
+        </form>
+    </div>
+</div>
