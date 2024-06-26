@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <img style="height: 40px; margin-left: 10px;" src="https://avatars3.githubusercontent.com/u/34464790?s=220&v=4" href="/">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active fs-4" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-4" aria-current="page" href="/myProject">My Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fs-4" aria-current="page" href="/testimonial">Testimonial</a>
+                    </li>
+                    
+                </ul>
+
+                {{#if isLogin}}
+                <p class="text-md-end">Welcome, {{user.nama}}</p>
+                <a href="/logout"><button class="btn btn-dark me-2">Loggout</button></a>
+                {{else}}
+                <a href="/login"><button class="btn btn-dark me-2">Login</button></a>
+                {{/if}}
+                
+                <div class="btn btn-dark">
+                    <a href="/contact" class="link-offset-2 link-underline link-underline-opacity-0 link-light">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </nav>
